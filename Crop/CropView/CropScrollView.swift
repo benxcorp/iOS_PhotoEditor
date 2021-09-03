@@ -21,9 +21,7 @@ class CropScrollView: UIScrollView {
         minimumZoomScale = 1.0
         maximumZoomScale = 10.0
         contentSize = bounds.size
-//        layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-
-        clipsToBounds = false
+        clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {

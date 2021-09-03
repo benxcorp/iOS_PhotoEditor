@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		948423D826D768F0009D5951 /* ColorMetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948423D726D768F0009D5951 /* ColorMetalRenderer.swift */; };
 		948423DC26D79BF6009D5951 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 948423DB26D79BF6009D5951 /* Shaders.metal */; };
 		948423E726DCBAAA009D5951 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948423E626DCBAAA009D5951 /* FilterViewController.swift */; };
 		948423E926DCBE61009D5951 /* FilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948423E826DCBE61009D5951 /* FilterCollectionViewCell.swift */; };
@@ -51,7 +50,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		948423D726D768F0009D5951 /* ColorMetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMetalRenderer.swift; sourceTree = "<group>"; };
 		948423DB26D79BF6009D5951 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		948423E626DCBAAA009D5951 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		948423E826DCBE61009D5951 /* FilterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				948423EC26DCC108009D5951 /* ColorLookupFilter.swift */,
-				948423D726D768F0009D5951 /* ColorMetalRenderer.swift */,
 				948423DB26D79BF6009D5951 /* Shaders.metal */,
 				948423E626DCBAAA009D5951 /* FilterViewController.swift */,
 				948423E826DCBE61009D5951 /* FilterCollectionViewCell.swift */,
@@ -345,7 +342,6 @@
 				948423ED26DCC108009D5951 /* ColorLookupFilter.swift in Sources */,
 				94AC170C26C4F9020058FF74 /* AppDelegate.swift in Sources */,
 				94AC174026C4FE690058FF74 /* CropViewController.swift in Sources */,
-				948423D826D768F0009D5951 /* ColorMetalRenderer.swift in Sources */,
 				94AC174A26C523B10058FF74 /* CropViewModel.swift in Sources */,
 				94AC175226CF8AB80058FF74 /* Box.swift in Sources */,
 				948423DC26D79BF6009D5951 /* Shaders.metal in Sources */,

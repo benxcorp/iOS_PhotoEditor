@@ -7,6 +7,29 @@
 
 import UIKit
 
+extension UIButton {
+    func alignTextBelow(spacing: CGFloat = 8.0) {
+        guard let image = self.imageView?.image else {
+            return
+        }
+
+        guard let titleLabel = self.titleLabel else {
+            return
+        }
+
+        guard let titleText = titleLabel.text else {
+            return
+        }
+
+        let titleSize = titleText.size(withAttributes: [
+            NSAttributedString.Key.font: titleLabel.font as Any
+        ])
+
+        titleEdgeInsets = UIEdgeInsets(top: spacing, left: -image.size.width, bottom: -image.size.height, right: 0)
+        imageEdgeInsets = UIEdgeInsets(top: -(titleSize.height + spacing), left: 0, bottom: 0, right: -titleSize.width)
+    }
+}
+
 extension UIView {
     func bindFrameToSuperviewBounds() {
         guard let superview = self.superview else {
@@ -89,7 +112,7 @@ extension UIView {
             maskLayer.path = path.cgPath
             self.layer.mask = maskLayer
         }
-  }
+    }
 
 }
 
@@ -147,15 +170,4 @@ extension UIImage {
         return newImage
    }
 
-}
-
-extension UIImageView {
-    func rotate() {
-        let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotation.toValue = NSNumber(value: Double.pi/2)
-        rotation.duration = 0.3
-        rotation.isCumulative = false
-//        rotation.repeatCount = Float.greatestFiniteMagnitude
-        self.layer.add(rotation, forKey: "rotationAnimation")
-    }
 }

@@ -49,7 +49,6 @@ class ColorLookupFilter {
         1, 1, 0.0, 1.0
     ]
     
-    // Float를 추가했는데 이미지 변경??
     let textData: [Float] = [
         0.0, 0.0,
         1.0, 0.0,
@@ -68,7 +67,7 @@ class ColorLookupFilter {
         self.outputTexture = makeOutputTexture()
         self.lutTexture = makeLUTTexture(lookUp: lookUp)
         self.samplerState = makeSamplerState()
-        self.colorSamplerState = makeSamplerState()
+        self.colorSamplerState = makeColorSamplerState()
         
         self.pipelineState = makePipelineState()
         self.commandBuffer = self.commandQueue.makeCommandBuffer()
@@ -96,21 +95,10 @@ class ColorLookupFilter {
     
     private func makePipelineState() -> MTLRenderPipelineState? {
         let defaultLibrary = device.makeDefaultLibrary()
-        
-//        guard let vertexFunction = defaultLibrary?.makeFunction(name: "vertexPassThroughShader"),
-//              let fragmentFunction = defaultLibrary?.makeFunction(name: "fragmentLookupShader") else {
-//            return nil
-//        }
-        
         guard let vertexFunction = defaultLibrary?.makeFunction(name: "vertexPassThrough"),
               let fragmentFunction = defaultLibrary?.makeFunction(name: "colorLookup2DSquare") else {
             return nil
         }
-
-//        guard let vertexFunction = defaultLibrary?.makeFunction(name: "vertexPassThroughShader"),
-//              let fragmentFunction = defaultLibrary?.makeFunction(name: "colorLookup2DSquare") else {
-//            return nil
-//        }
 
         let descriptor = MTLRenderPipelineDescriptor()
         descriptor.vertexFunction = vertexFunction
@@ -121,28 +109,6 @@ class ColorLookupFilter {
         return pipeLineState
     }
     
-//    private func encodeCommand() {
-//        guard let commandEncoder = commandEncoder,
-//              let pipelineState = pipelineState else {
-//            return
-//        }
-//
-//        commandEncoder.setRenderPipelineState(pipelineState)
-//        let vertexDataSize = vertexData.count * MemoryLayout<Float>.size
-//        let vertexBuffer = device.makeBuffer(bytes: vertexData,
-//                                             length: vertexDataSize,
-//                                             options: [])
-//
-//        commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-//        commandEncoder.setFragmentTexture(inputTexture, index: 0)
-//        commandEncoder.setFragmentTexture(lutTexture, index: 1)
-//        commandEncoder.setFragmentSamplerState(samplerState, index: 0)
-//        commandEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: vertexData.count / 2)
-//        commandEncoder.endEncoding()
-//    }
-
-    
-    
     private func encodeCommand() {
         guard let commandEncoder = commandEncoder,
               let pipelineState = pipelineState else {
@@ -150,13 +116,6 @@ class ColorLookupFilter {
         }
 
         commandEncoder.setRenderPipelineState(pipelineState)
-//        let vertexDataSize = vertexData.count * MemoryLayout<Float>.size
-//        let vertexBuffer = device.makeBuffer(bytes: vertexData,
-//                                             length: vertexDataSize,
-//                                             options: [])
-//        commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-
-        
         vertexCoordBuffer = device.makeBuffer(bytes: vertexData, length: vertexData.count * MemoryLayout<Float>.size, options: [])
         textCoordBuffer = device.makeBuffer(bytes: textData, length: textData.count * MemoryLayout<Float>.size, options: [])
 
@@ -170,13 +129,11 @@ class ColorLookupFilter {
         commandEncoder.setFragmentSamplerState(colorSamplerState, index: 1)
 
 
-        let dimension: NSNumber = 64
-        let intensity: NSNumber = 1
-        var dim = dimension.intValue
-        var inten = intensity.floatValue
+        var dimension: Int = 64
+        var intensity: Float = 1
 
-        commandEncoder.setFragmentBytes(&dim, length: MemoryLayout<Int>.stride, index: 0)
-        commandEncoder.setFragmentBytes(&inten, length: MemoryLayout<Float>.stride, index: 1)
+        commandEncoder.setFragmentBytes(&dimension, length: MemoryLayout<Int>.stride, index: 0)
+        commandEncoder.setFragmentBytes(&intensity, length: MemoryLayout<Float>.stride, index: 1)
         commandEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4)
         commandEncoder.endEncoding()
     }
@@ -187,14 +144,11 @@ class ColorLookupFilter {
         descriptor.tAddressMode = .clampToEdge
         descriptor.magFilter = .linear
         descriptor.minFilter = .linear
-        
         return device.makeSamplerState(descriptor: descriptor)!
     }
     
     private func makeColorSamplerState() -> MTLSamplerState {
         let descriptor = MTLSamplerDescriptor()
-//        descriptor.sAddressMode = .clampToEdge
-//        descriptor.tAddressMode = .clampToEdge
         descriptor.sAddressMode = .clampToZero
         descriptor.tAddressMode = .clampToZero
 
@@ -244,43 +198,4 @@ class ColorLookupFilter {
         }
         return UIImage(ciImage: ciImage)
     }
-    
-//    - (void)setLutImage:(UIImage *)lutImage{
-//    _lutImage = lutImage;
-//
-//    CGImageRef imageRef = [_lutImage CGImage];
-//
-//    // Create a suitable bitmap context for extracting the bits of the image
-//    NSUInteger width = CGImageGetWidth(imageRef);
-//    NSUInteger height = CGImageGetHeight(imageRef);
-//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//    uint8_t *rawData = (uint8_t *)calloc(height * width * 4, sizeof(uint8_t));
-//    NSUInteger bytesPerPixel = 4;
-//    NSUInteger bytesPerRow = bytesPerPixel * width;
-//    NSUInteger bitsPerComponent = 8;
-//    CGContextRef bitmapContext = CGBitmapContextCreate(rawData, width, height,
-//                                                       bitsPerComponent, bytesPerRow, colorSpace,
-//                                                       kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-//    CGColorSpaceRelease(colorSpace);
-//
-//
-//    CGContextDrawImage(bitmapContext, CGRectMake(0, 0, width, height), imageRef);
-//    CGContextRelease(bitmapContext);
-//
-//    MTLRegion region = MTLRegionMake2D(0, 0, width, height);
-//    [self.lutTexture replaceRegion:region mipmapLevel:0 withBytes:rawData bytesPerRow:bytesPerRow];
-//
-//    free(rawData);
-//    }
-
-//
-//    private func setLutImage(_ image: UIImage) {
-//        guard let imageRef = image.cgImage else {
-//            return
-//        }
-//        let width = imageRef.width
-//        let height = imageRef.height
-//        let colorSpace = CGColorSpaceCreateDeviceRGB()
-//        let rawData =
-//    }
 }

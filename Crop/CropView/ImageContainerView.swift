@@ -12,7 +12,6 @@ class ImageContainerView: UIView {
         let imageView = UIImageView(frame: bounds)
         imageView.layer.minificationFilter = .trilinear
         imageView.contentMode = .scaleAspectFit
-//        addSubViewToFit(imageView)
         addSubview(imageView)
         
         return imageView
@@ -20,7 +19,6 @@ class ImageContainerView: UIView {
     
     var image: UIImage? {
         didSet {
-//            imageView.frame = bounds
             imageView.image = image
         }
     }

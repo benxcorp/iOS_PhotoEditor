@@ -9,7 +9,6 @@ import UIKit
 
 class CropViewModel {
     let hotAreaUnit: CGFloat = 32
-//    var boxFrame = CGRect.zero
     var cropBoxFrame: Box<CGRect> = Box(.zero)
     
     var beginCropBoxFrame = CGRect.zero
@@ -19,29 +18,20 @@ class CropViewModel {
     func prepareCrop(with point: CGPoint) {
         beginPanPoint = point
         beginCropBoxFrame = cropBoxFrame.value
-        
         let touchRect = cropBoxFrame.value.insetBy(dx: -hotAreaUnit / 2, dy: -hotAreaUnit / 2)
         tapEdge = getCropEdge(forPoint: point, byTouchRect: touchRect)
     }
 
     func updateCropBoxFrame(with point: CGPoint, touchRect: CGRect, imageFrame: CGRect, containerFrame: CGRect) {
-//        var point = point
-//        point.x = max(beginCropBoxFrame.origin.x, point.x)
-//        point.y = max(beginCropBoxFrame.origin.y, point.y)
-        
         print("imageFrame \(imageFrame) point \(point) isContains \(imageFrame.contains(point))")
         guard imageFrame.contains(point) else {
             return
         }
         
         let delta = CGPoint(x: point.x - beginPanPoint.x, y: point.y - beginPanPoint.y)
-        var beforeCropBoxFrame = self.cropBoxFrame.value
         var newCropBoxFrame = self.cropBoxFrame.value
 
         func handleTop() {
-//            newCropBoxFrame.origin.y = beginCropBoxFrame.origin.y + delta.y
-//            newCropBoxFrame.size.height = beginCropBoxFrame.height - delta.y
-//
             var updateCropBoxFrame = newCropBoxFrame
             updateCropBoxFrame.origin.y = beginCropBoxFrame.origin.y + delta.y
             updateCropBoxFrame.size.height = beginCropBoxFrame.height - delta.y
@@ -116,29 +106,7 @@ class CropViewModel {
             break
         }
         
-//        if newCropBoxFrame.size.width / newCropBoxFrame.size.height < minCropBoxRatio {
-//            newCropBoxFrame = beforeCropBoxFrame
-//        }
-        
-//        if cropBoxFrame.origin.x >= cropViewPadding,
-//           cropBoxFrame.maxX <= containerFrame.maxX - cropViewPadding,
-//           cropBoxFrame.origin.y >= 0,
-//           cropBoxFrame.maxY <= containerFrame.maxY {
-//            self.cropBoxFrame.value = cropBoxFrame
-//        }
-//        if cropBoxFrame.size.width / cropBoxFrame.size.height < minCropBoxRatio {
-//
-//        }
-        
-        
         self.cropBoxFrame.value = newCropBoxFrame
-
-//        if cropBoxFrame.origin.x >= max(imageFrame.origin.x, cropViewPadding),
-//           cropBoxFrame.maxX <= min(imageFrame.maxX, containerFrame.maxX - cropViewPadding),
-//           cropBoxFrame.origin.y >= max(imageFrame.origin.y, cropViewPadding),
-//           cropBoxFrame.maxY <= min(imageFrame.maxY,containerFrame.maxY - cropViewPadding)  {
-//            self.cropBoxFrame.value = cropBoxFrame
-//        }
     }
 
     func getCropEdge(forPoint point: CGPoint, byTouchRect touchRect: CGRect) -> CropViewOverlayEdge {
@@ -164,7 +132,6 @@ class CropViewModel {
             return .bottomRight
         }
         
-        //Check for edges
         let topRect = CGRect(origin: touchRect.origin, size: CGSize(width: touchRect.width, height: hotAreaUnit))
         if topRect.contains(point) {
             return .top

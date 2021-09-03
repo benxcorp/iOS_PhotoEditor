@@ -8,11 +8,12 @@
 import UIKit
 
 struct ImageInfo {
-    let image: UIImage
+    let originalImage: UIImage
     let filter: Lookup?
-    var filterImage: UIImage?
+//    var filterImage: UIImage?
     var cropInfoList: [CropInfo]?
-//    var cropImage: UIImage?
+    var cropImage: UIImage?
+    var rotation: Rotation = .degree0
 }
 
 class GalleryViewController: UIViewController {
@@ -20,19 +21,24 @@ class GalleryViewController: UIViewController {
     var imageInfoList = [ImageInfo]()
     var currentPage: Int = 0
     var filterVC: FilterViewController?
+    @IBOutlet weak var rotationButton: UIButton!
+    @IBOutlet weak var cropButton: UIButton!
+    
     static func makeGalleryViewContorller(with images: [UIImage]) -> GalleryViewController {
         guard let vc = UIStoryboard(name: "Crop", bundle: nil).instantiateViewController(identifier: "GalleryViewController") as? GalleryViewController else {
             fatalError()
         }
-        vc.imageInfoList = images.map { ImageInfo(image: $0, filter: nil, cropInfoList: nil) }
+        vc.imageInfoList = images.map { ImageInfo(originalImage: $0, filter: nil, cropInfoList: nil) }
         return vc
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItem()
         setupCollectionView()
+        setupButtons()
         updateFilterList()
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilterList",
@@ -43,9 +49,12 @@ class GalleryViewController: UIViewController {
     }
     
     private func updateFilterList() {
-        // FIXME: crash
+        guard !imageInfoList.isEmpty else {
+            return
+        }
+
         let imageInfo = imageInfoList[currentPage]
-        filterVC?.updateThubmImage(imageInfo.image)
+        filterVC?.updateThubmImage(imageInfo.originalImage)
         filterVC?.updateFilterList(imageInfo: imageInfo)
     }
         
@@ -54,6 +63,14 @@ class GalleryViewController: UIViewController {
         leftButton.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.title = "\(currentPage+1)/\(imageInfoList.count)"
+        
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = .black
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+
     }
     
     private func setupCollectionView() {
@@ -70,6 +87,12 @@ class GalleryViewController: UIViewController {
         collectionView.dataSource = self
     }
     
+    private func setupButtons() {
+        rotationButton.alignTextBelow()
+        rotationButton.isUserInteractionEnabled = false
+        cropButton.alignTextBelow()
+    }
+    
     @objc private func tapCloseButton() {
         dismiss(animated: true, completion: nil)
     }
@@ -78,13 +101,31 @@ class GalleryViewController: UIViewController {
         guard let cell = collectionView.cellForItem(at: IndexPath(item: currentPage, section: 0)) as? GalleryCollectionViewCell else {
             return
         }
+        cell.rotateImageView()
         
-//        cell.rotateImageView()
+        let transform = cell.imageView.transform
+        var rotation = atan2(transform.b, transform.a)
+        if rotation < 0 {
+            rotation += .pi * 2
+        }
+        let degree = rotation * 180 / .pi
+
+        var imageInfo = imageInfoList[currentPage]
+        imageInfo.rotation = Rotation.degree(value: Int(abs(round(degree))))
+        imageInfoList[currentPage] = imageInfo
+        
     }
     
     @IBAction func tapCropButton(_ sender: Any) {
-        let image = imageInfoList[currentPage].filterImage ?? imageInfoList[currentPage].image
-        presentCropVC(with: image)
+        let image = imageInfoList[currentPage].originalImage
+        let lookupFilter = ColorLookupFilter(image: image)
+        
+        if let filter = imageInfoList[currentPage].filter,
+           let filterImage = lookupFilter.applyFiler(with: filter) {
+            presentCropVC(with: filterImage)
+        } else {
+            presentCropVC(with: image)
+        }
     }
         
     private func presentCropVC(with image: UIImage) {
@@ -94,8 +135,10 @@ class GalleryViewController: UIViewController {
 
         let cropInfoList = imageInfoList[currentPage].cropInfoList
         vc.cropInfoList = cropInfoList ?? []
+        vc.rotation = imageInfoList[currentPage].rotation
         present(vc, animated: true, completion: nil)
     }
+    
 
 }
 
@@ -112,7 +155,14 @@ extension GalleryViewController: UICollectionViewDelegate, UICollectionViewDataS
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GalleryCollectionViewCell", for: indexPath) as? GalleryCollectionViewCell else {
             fatalError()
         }
-        cell.imageView.image = imageInfoList[indexPath.item].image
+        let image = imageInfoList[indexPath.item].cropImage ?? imageInfoList[indexPath.item].originalImage
+        let lookupFilter = ColorLookupFilter(image: image)
+        if let filter = imageInfoList[indexPath.item].filter,
+           let filterImage = lookupFilter.applyFiler(with: filter) {
+            cell.imageView.image = filterImage
+        } else {
+            cell.imageView.image = image
+        }
         return cell
     }
 
@@ -132,17 +182,13 @@ extension GalleryViewController: CropViewControllerDelegate {
         guard let cell = collectionView.cellForItem(at: IndexPath(item: currentPage, section: 0)) as? GalleryCollectionViewCell else {
             return
         }
+        cell.imageView.transform = .identity
         cell.imageView.image = croppedImage
 
         var imageInfo = imageInfoList[currentPage]
+        imageInfo.cropImage = croppedImage
         imageInfo.cropInfoList = cropInfoList
         imageInfoList[currentPage] = imageInfo
-        
-//        if let lastCropInfo = cropInfoList.last  {
-//            cell.scrollView.minimumZoomScale = lastCropInfo.minimumZoomScale
-//            cell.scrollView.zoomScale = lastCropInfo.zoomScale
-//            cell.scrollView.contentOffset = lastCropInfo.contentOffset
-//        }
     }
 }
 
@@ -151,11 +197,13 @@ extension GalleryViewController: FilterViewControllerDelegate {
         guard let cell = collectionView.cellForItem(at: IndexPath(item: currentPage, section: 0)) as? GalleryCollectionViewCell else {
             return
         }
-        let currentImage = imageInfoList[currentPage].image
+        
+        let currentImage = imageInfoList[currentPage].cropImage ?? imageInfoList[currentPage].originalImage
         let currentCropInfoList = imageInfoList[currentPage].cropInfoList
         let lookupFilter = ColorLookupFilter(image: currentImage)
         let filterImage = lookupFilter.applyFiler(with: filter)
-        let imageInfo = ImageInfo(image: currentImage, filter: filter, filterImage: filterImage, cropInfoList: currentCropInfoList)
+        let rotation = imageInfoList[currentPage].rotation
+        let imageInfo = ImageInfo(originalImage: imageInfoList[currentPage].originalImage, filter: filter, cropInfoList: currentCropInfoList, cropImage: imageInfoList[currentPage].cropImage, rotation: rotation)
         cell.imageView.image = filterImage
         imageInfoList[currentPage] = imageInfo
     }

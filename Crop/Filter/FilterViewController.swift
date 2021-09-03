@@ -39,9 +39,6 @@ class FilterViewController: UIViewController {
     }
     
     func updateThubmImage(_ image: UIImage) {
-//        guard thumbImage == nil else {
-//            return
-//        }
         let currentImage = image
         thumbImage = currentImage.resizeImage(image: currentImage, targetSize: CGSize(width: 240, height: 240))
     }

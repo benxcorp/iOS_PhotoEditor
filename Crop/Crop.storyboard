@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,95 +33,65 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="bVv-3Z-9gb">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5qx-kQ-EOy">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="669"/>
-                                                    <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5qx-kQ-EOy">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="669"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="414" id="Rsc-pd-dQ8"/>
-                                                                <constraint firstAttribute="height" constant="669" id="agw-QC-BSp"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="5qx-kQ-EOy" firstAttribute="centerX" secondItem="bVv-3Z-9gb" secondAttribute="centerX" id="dJA-Zg-H4e"/>
-                                                        <constraint firstItem="5qx-kQ-EOy" firstAttribute="centerY" secondItem="bVv-3Z-9gb" secondAttribute="centerY" id="llx-8Y-2vC"/>
+                                                        <constraint firstAttribute="height" constant="669" id="Jij-Bf-Isu"/>
+                                                        <constraint firstAttribute="width" constant="414" id="eA1-ef-6cZ"/>
                                                     </constraints>
-                                                </scrollView>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="bVv-3Z-9gb" firstAttribute="top" secondItem="36h-U5-llW" secondAttribute="top" id="208-m4-2wg"/>
-                                                <constraint firstAttribute="trailing" secondItem="bVv-3Z-9gb" secondAttribute="trailing" id="P2K-ZB-bok"/>
-                                                <constraint firstAttribute="bottom" secondItem="bVv-3Z-9gb" secondAttribute="bottom" id="TYS-Mj-28p"/>
-                                                <constraint firstItem="bVv-3Z-9gb" firstAttribute="leading" secondItem="36h-U5-llW" secondAttribute="leading" id="uc6-u5-LO5"/>
+                                                <constraint firstItem="5qx-kQ-EOy" firstAttribute="width" secondItem="36h-U5-llW" secondAttribute="width" priority="750" id="4mZ-qz-65z"/>
+                                                <constraint firstItem="5qx-kQ-EOy" firstAttribute="centerY" secondItem="36h-U5-llW" secondAttribute="centerY" id="AuD-cf-aQo"/>
+                                                <constraint firstItem="5qx-kQ-EOy" firstAttribute="centerX" secondItem="36h-U5-llW" secondAttribute="centerX" id="Dc2-dw-XOx"/>
+                                                <constraint firstItem="5qx-kQ-EOy" firstAttribute="height" secondItem="36h-U5-llW" secondAttribute="height" priority="750" id="uN3-lG-GQo"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="414" height="669"/>
                                         <connections>
                                             <outlet property="imageView" destination="5qx-kQ-EOy" id="2uI-Zs-cOq"/>
-                                            <outlet property="scrollView" destination="bVv-3Z-9gb" id="ZdX-hZ-yb8"/>
+                                            <outlet property="imageViewHeight" destination="Jij-Bf-Isu" id="3vN-sd-j1u"/>
+                                            <outlet property="imageViewWidth" destination="eA1-ef-6cZ" id="QDA-Tg-6lN"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YHV-b5-3rm">
-                                <rect key="frame" x="137" y="782" width="140" height="50"/>
+                                <rect key="frame" x="137" y="772" width="140" height="80"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXK-CE-On2">
-                                        <rect key="frame" x="0.0" y="0.0" width="28" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV4-BS-9w2">
-                                                <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="28" id="2KC-jl-sVf"/>
-                                                    <constraint firstAttribute="height" constant="28" id="sjN-vW-FG3"/>
-                                                </constraints>
-                                                <state key="normal" title="Button" image="iconGalleryRotate"/>
-                                                <connections>
-                                                    <action selector="tapRotateButton:" destination="Cm7-p0-aEf" eventType="touchUpInside" id="Dz2-Qg-Mb1"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sV4-BS-9w2">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="80"/>
                                         <constraints>
-                                            <constraint firstItem="sV4-BS-9w2" firstAttribute="top" secondItem="hXK-CE-On2" secondAttribute="top" id="HQP-dd-yf8"/>
-                                            <constraint firstAttribute="width" constant="28" id="QGB-ae-Kze"/>
-                                            <constraint firstItem="sV4-BS-9w2" firstAttribute="leading" secondItem="hXK-CE-On2" secondAttribute="leading" id="UI6-gQ-gZl"/>
-                                            <constraint firstAttribute="height" constant="50" id="ty4-4j-Ebw"/>
+                                            <constraint firstAttribute="width" constant="50" id="2KC-jl-sVf"/>
+                                            <constraint firstAttribute="height" constant="80" id="sjN-vW-FG3"/>
                                         </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lzn-RZ-wgR">
-                                        <rect key="frame" x="112" y="0.0" width="28" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ae-nT-9gS">
-                                                <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="28" id="Eln-Zq-c3l"/>
-                                                    <constraint firstAttribute="height" constant="28" id="po2-2P-05G"/>
-                                                </constraints>
-                                                <state key="normal" title="Button" image="iconGalleryCrop"/>
-                                                <connections>
-                                                    <action selector="tapCropButton:" destination="Cm7-p0-aEf" eventType="touchUpInside" id="kAM-Rl-tQo"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="회전" image="iconGalleryRotate"/>
+                                        <connections>
+                                            <action selector="tapRotateButton:" destination="Cm7-p0-aEf" eventType="touchUpInside" id="Dz2-Qg-Mb1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ae-nT-9gS">
+                                        <rect key="frame" x="90" y="0.0" width="50" height="80"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Dw0-m9-EdT"/>
-                                            <constraint firstAttribute="trailing" secondItem="6ae-nT-9gS" secondAttribute="trailing" id="Gpn-Bs-K39"/>
-                                            <constraint firstItem="6ae-nT-9gS" firstAttribute="top" secondItem="lzn-RZ-wgR" secondAttribute="top" id="NS0-sO-YfR"/>
-                                            <constraint firstAttribute="width" constant="28" id="jcy-Ie-gBB"/>
+                                            <constraint firstAttribute="width" constant="50" id="Eln-Zq-c3l"/>
+                                            <constraint firstAttribute="height" constant="80" id="po2-2P-05G"/>
                                         </constraints>
-                                    </view>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="자르기" image="iconGalleryCrop"/>
+                                        <connections>
+                                            <action selector="tapCropButton:" destination="Cm7-p0-aEf" eventType="touchUpInside" id="kAM-Rl-tQo"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="3x2-JA-1Lr"/>
+                                    <constraint firstAttribute="height" constant="80" id="3x2-JA-1Lr"/>
                                     <constraint firstAttribute="width" constant="140" id="aZV-fU-IjI"/>
                                 </constraints>
                             </stackView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujd-9U-2cn">
-                                <rect key="frame" x="0.0" y="662" width="414" height="120"/>
+                                <rect key="frame" x="0.0" y="652" width="414" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="8K2-AK-za6"/>
@@ -138,7 +107,7 @@
                             <constraint firstItem="hOh-fs-M4Z" firstAttribute="leading" secondItem="2J6-xZ-gg9" secondAttribute="leading" id="0a4-nN-1yu"/>
                             <constraint firstItem="2J6-xZ-gg9" firstAttribute="trailing" secondItem="hOh-fs-M4Z" secondAttribute="trailing" id="7g7-3B-xWH"/>
                             <constraint firstItem="YHV-b5-3rm" firstAttribute="centerX" secondItem="8iE-vY-Lg7" secondAttribute="centerXWithinMargins" id="EB3-aE-kGG"/>
-                            <constraint firstItem="2J6-xZ-gg9" firstAttribute="bottom" secondItem="YHV-b5-3rm" secondAttribute="bottom" constant="30" id="Kh5-Kc-2KN"/>
+                            <constraint firstItem="2J6-xZ-gg9" firstAttribute="bottom" secondItem="YHV-b5-3rm" secondAttribute="bottom" constant="10" id="Kh5-Kc-2KN"/>
                             <constraint firstItem="YHV-b5-3rm" firstAttribute="top" secondItem="ujd-9U-2cn" secondAttribute="bottom" id="PIR-gb-oi9"/>
                             <constraint firstItem="hOh-fs-M4Z" firstAttribute="top" secondItem="8iE-vY-Lg7" secondAttribute="top" id="Q1C-De-ngr"/>
                             <constraint firstItem="ujd-9U-2cn" firstAttribute="leading" secondItem="8iE-vY-Lg7" secondAttribute="leading" id="b6A-zo-xeU"/>
@@ -149,6 +118,8 @@
                     <navigationItem key="navigationItem" id="2Wl-LD-hu7"/>
                     <connections>
                         <outlet property="collectionView" destination="hOh-fs-M4Z" id="h9l-In-cxA"/>
+                        <outlet property="cropButton" destination="6ae-nT-9gS" id="K6s-01-af6"/>
+                        <outlet property="rotationButton" destination="sV4-BS-9w2" id="Kau-lk-8VD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zlr-D8-eMd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -164,7 +135,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AOr-TC-nBc">
-                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uwf-UR-Ofl">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -211,59 +182,83 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kxT-45-JQC">
-                                        <rect key="frame" x="0.0" y="44" width="414" height="680"/>
+                                        <rect key="frame" x="0.0" y="44" width="414" height="621"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="kxT-45-JQC" secondAttribute="height" multiplier="2:3" id="bGQ-C4-Fvd"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJr-hd-xXB">
+                                        <rect key="frame" x="0.0" y="665" width="414" height="33"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U97-8C-xTK">
-                                        <rect key="frame" x="0.0" y="724" width="414" height="128"/>
+                                        <rect key="frame" x="0.0" y="698" width="414" height="120"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="nMj-Hg-Ec6">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                                                <rect key="frame" x="30" y="0.0" width="354" height="120"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fu3-kJ-YUK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="83" height="128"/>
-                                                        <state key="normal" image="iconGalleryCrop3To4White"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="71" height="120"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="FREE" image="iconGalleryCrop3To4White"/>
+                                                        <state key="selected" title="FREE" image="iconGalleryCrop3To4Selected">
+                                                            <color key="titleColor" red="0.043137254901960784" green="0.90196078431372551" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="tapCropButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="dAC-In-jYp"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXX-LN-lsp">
-                                                        <rect key="frame" x="83" y="0.0" width="82.5" height="128"/>
-                                                        <state key="normal" image="iconGalleryCrop3To4White"/>
+                                                        <rect key="frame" x="71" y="0.0" width="70.5" height="120"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="3:4" image="iconGalleryCrop3To4White"/>
+                                                        <state key="selected" image="iconGalleryCrop3To4Selected">
+                                                            <color key="titleColor" red="0.043137254901960784" green="0.90196078431372551" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="tapCropButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="bbh-tu-ldT"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbc-XK-MJl">
-                                                        <rect key="frame" x="165.5" y="0.0" width="83" height="128"/>
-                                                        <state key="normal" image="iconGalleryCrop4To3White"/>
+                                                        <rect key="frame" x="141.5" y="0.0" width="71" height="120"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="4:3" image="iconGalleryCrop4To3White"/>
+                                                        <state key="selected" title="4:3" image="iconGalleryCrop4To3Selected">
+                                                            <color key="titleColor" red="0.043137254901960784" green="0.90196078431372551" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="tapCropButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="qPF-fZ-VEB"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whi-XV-64q">
-                                                        <rect key="frame" x="248.5" y="0.0" width="82.5" height="128"/>
-                                                        <state key="normal" image="iconGalleryCrop1To1White"/>
+                                                        <rect key="frame" x="212.5" y="0.0" width="70.5" height="120"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="1:1" image="iconGalleryCrop1To1White"/>
+                                                        <state key="selected" image="iconGalleryCrop1To1Selected">
+                                                            <color key="titleColor" red="0.043137254901960784" green="0.90196078431372551" blue="0.75686274509803919" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="tapCropButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="JxP-XJ-fcF"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmM-FO-R7i">
-                                                        <rect key="frame" x="331" y="0.0" width="83" height="128"/>
-                                                        <state key="normal" title="Button"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Drj-Aa-Pox">
+                                                        <rect key="frame" x="283" y="0.0" width="71" height="120"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <state key="normal" title="회전" image="iconGalleryRotate"/>
                                                         <connections>
-                                                            <action selector="rotation:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="AvM-1L-ZRR"/>
+                                                            <action selector="rotation:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="v5u-Ew-5pd"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="nMj-Hg-Ec6" firstAttribute="top" secondItem="U97-8C-xTK" secondAttribute="top" id="Ujb-sg-wB8"/>
-                                            <constraint firstItem="nMj-Hg-Ec6" firstAttribute="leading" secondItem="U97-8C-xTK" secondAttribute="leading" id="j8N-qd-xd9"/>
-                                            <constraint firstAttribute="trailing" secondItem="nMj-Hg-Ec6" secondAttribute="trailing" id="nVO-Rf-LL7"/>
-                                            <constraint firstAttribute="height" constant="128" id="nrx-kv-kOz"/>
+                                            <constraint firstItem="nMj-Hg-Ec6" firstAttribute="leading" secondItem="U97-8C-xTK" secondAttribute="leading" constant="30" id="j8N-qd-xd9"/>
+                                            <constraint firstAttribute="trailing" secondItem="nMj-Hg-Ec6" secondAttribute="trailing" constant="30" id="nVO-Rf-LL7"/>
+                                            <constraint firstAttribute="height" constant="120" id="nrx-kv-kOz"/>
                                             <constraint firstAttribute="bottom" secondItem="nMj-Hg-Ec6" secondAttribute="bottom" id="t4u-gt-FLl"/>
                                         </constraints>
                                     </view>
@@ -275,7 +270,7 @@
                         <constraints>
                             <constraint firstItem="AOr-TC-nBc" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="J8D-6E-9fA"/>
                             <constraint firstItem="AOr-TC-nBc" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="JIc-iQ-Fw4"/>
-                            <constraint firstAttribute="bottom" secondItem="AOr-TC-nBc" secondAttribute="bottom" id="Qwq-vP-CzT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="AOr-TC-nBc" secondAttribute="bottom" id="Qwq-vP-CzT"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="AOr-TC-nBc" secondAttribute="trailing" id="WCh-ow-uSs"/>
                         </constraints>
                     </view>
@@ -288,6 +283,7 @@
                         <outlet property="cropContainerView" destination="kxT-45-JQC" id="rha-T5-rJ9"/>
                         <outlet property="cropFreeButton" destination="fu3-kJ-YUK" id="U2M-AA-kMh"/>
                         <outlet property="doneButton" destination="75h-dB-dZL" id="kMQ-rC-QYj"/>
+                        <outlet property="rotationButton" destination="Drj-Aa-Pox" id="jyV-SJ-aB2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -393,14 +389,14 @@
     </scenes>
     <resources>
         <image name="iconGalleryCrop" width="28" height="28"/>
+        <image name="iconGalleryCrop1To1Selected" width="28" height="28"/>
         <image name="iconGalleryCrop1To1White" width="28" height="28"/>
+        <image name="iconGalleryCrop3To4Selected" width="28" height="28"/>
         <image name="iconGalleryCrop3To4White" width="28" height="28"/>
+        <image name="iconGalleryCrop4To3Selected" width="28" height="28"/>
         <image name="iconGalleryCrop4To3White" width="28" height="28"/>
         <image name="iconGalleryRotate" width="28" height="28"/>
         <image name="iconTitlebarIconTitlebarClose" width="28" height="28"/>
         <image name="iconTitlebarIconTitlebarDone" width="28" height="28"/>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

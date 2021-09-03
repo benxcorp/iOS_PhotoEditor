@@ -41,7 +41,6 @@ class ViewController: UIViewController {
     private func showPHPPicker() {
         var configuration = PHPickerConfiguration()
         configuration.selectionLimit = 10
-//        configuration.filter = .any(of: [.images])
         configuration.filter = .images
         
         let picker = PHPickerViewController(configuration: configuration)
@@ -55,6 +54,7 @@ class ViewController: UIViewController {
 //        vc.delegate = self
 //        present(vc, animated: true, completion: nil)
 //    }
+    
     private func presentGalleryVC(with images: [UIImage]) {
         let vc = GalleryViewController.makeGalleryViewContorller(with: images)
         vc.modalPresentationStyle = .fullScreen
@@ -85,6 +85,9 @@ extension ViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         var images: [UIImage] = []
         for result in results {
+            guard result.itemProvider.canLoadObject(ofClass: UIImage.self) else {
+                continue
+            }
             result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
                 guard let image = object as? UIImage else { return }
 //                guard let resizedImage: UIImage = UIGraphicsImageRenderer(size: CGSize(width: 2_000, height: 2_000)).image { (context) in
@@ -96,7 +99,6 @@ extension ViewController: PHPickerViewControllerDelegate {
             }
         }
 
-        
         picker.dismiss(animated: true) {
             self.presentGalleryVC(with: images)
         }
